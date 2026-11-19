@@ -418,6 +418,88 @@ img{max-width:100%}
   .pgrid .w,.pgrid .c,.pgrid .p{grid-column:span 1!important;aspect-ratio:4/3!important}
   .pgrid .ph.has img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 }
+
+
+/* FINAL FIX: GitHub filename case, stacked mobile gallery, full-bleed divider */
+.pgrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+  width:100%;
+  max-width:960px;
+  margin:1.6rem auto;
+}
+.pgrid .ph{
+  position:relative;
+  display:block;
+  min-width:0;
+  width:100%;
+  aspect-ratio:4/3;
+  grid-column:span 1 !important;
+  overflow:hidden;
+  border-radius:12px;
+  background:#fbe9ec;
+}
+.pgrid .ph.has img{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+/* The first and last prenup photos get a full row on larger screens. */
+.pgrid .ph.w{grid-column:1 / -1 !important;aspect-ratio:16/9}
+
+/* Break the divider out of the 720px content column so it spans the screen. */
+.pdivw{
+  position:relative;
+  left:50%;
+  width:100vw;
+  max-width:100vw;
+  margin-left:-50vw;
+  margin-top:1rem;
+  margin-bottom:1rem;
+  overflow:hidden;
+}
+.pdivw .pdiv{
+  width:100%;
+  height:clamp(220px,42vw,480px);
+  clip-path:none;
+}
+.pdivw .pdiv .ph.has{
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:#fbe9ec;
+}
+.pdivw .pdiv .ph.has img{
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+@media(max-width:640px){
+  .pgrid{grid-template-columns:minmax(0,1fr);gap:1rem;padding:0 .15rem}
+  .pgrid .ph,.pgrid .ph.w,.pgrid .ph.c{
+    grid-column:1 / -1 !important;
+    width:100%;
+    aspect-ratio:4/3;
+  }
+  .pgrid .ph.has img{object-fit:contain}
+  .pdivw{width:100vw;max-width:100vw;left:50%;margin-left:-50vw}
+  .pdivw .pdiv{height:clamp(190px,62vw,320px);clip-path:none}
+  .pdivw .pdiv .ph.has img{object-fit:cover}
+}
+
 </style>
 </head>
 <body class="locked">
@@ -462,7 +544,7 @@ img{max-width:100%}
     <p id="cdmsg"></p>
   </section>
 
-  <div class="pdivw"><div class="pdiv t1"><div class="ph has"><img src="divider-photo.JPG" alt="Romer and Justin" loading="lazy"></div></div></div>
+  <div class="pdivw"><div class="pdiv t1"><div class="ph has"><img src="divider-photo.jpg" alt="Romer and Justin" loading="lazy"></div></div></div>
 
   <!-- WHEN & WHERE -->
   <section>
@@ -608,7 +690,7 @@ img{max-width:100%}
     <h2 class="script">Our Prenup Photos</h2>
     <p class="muted">A little glimpse of our story.</p>
     <!-- To use your photos: replace the text inside each .ph with <img src="photo1.jpg" alt="Romer and Justin"> -->
-    <div class="pgrid"><div class="ph has w"><img src="prenup-01.JPG" alt="Romer and Justin prenup photo 1" loading="lazy"></div><div class="ph has c"><img src="prenup-02.JPG" alt="Romer and Justin prenup photo 2" loading="lazy"></div><div class="ph has c"><img src="prenup-03.JPG" alt="Romer and Justin prenup photo 3" loading="lazy"></div><div class="ph has c"><img src="prenup-04.JPG" alt="Romer and Justin prenup photo 4" loading="lazy"></div><div class="ph has c"><img src="prenup-05.jpg" alt="Romer and Justin prenup photo 5" loading="lazy"></div><div class="ph has w"><img src="prenup-06.JPG" alt="Romer and Justin prenup photo 6" loading="lazy"></div></div>
+    <div class="pgrid"><div class="ph has w"><img src="prenup-01.jpg" alt="Romer and Justin prenup photo 1" loading="lazy"></div><div class="ph has c"><img src="prenup-02.jpg" alt="Romer and Justin prenup photo 2" loading="lazy"></div><div class="ph has c"><img src="prenup-03.jpg" alt="Romer and Justin prenup photo 3" loading="lazy"></div><div class="ph has c"><img src="prenup-04.jpg" alt="Romer and Justin prenup photo 4" loading="lazy"></div><div class="ph has c"><img src="prenup-05.jpg" alt="Romer and Justin prenup photo 5" loading="lazy"></div><div class="ph has w"><img src="prenup-06.jpg" alt="Romer and Justin prenup photo 6" loading="lazy"></div></div>
   </section>
 
   <footer>
