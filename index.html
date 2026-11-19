@@ -54,8 +54,7 @@ a{color:var(--maroon)}
 @keyframes nudge2{50%{opacity:.55}}
 @media(max-width:640px){
   .cf{width:min(30vw,120px)}.c2,.c3{width:min(34vw,140px)}
-  #player{width:46px;height:46px;right:10px;bottom:10px}
-  #player .tip{font-size:.68rem;padding:.18rem .42rem}
+  #player{width:62px;height:62px;right:10px;bottom:10px}.tip{font-size:.95rem;padding:.3rem .7rem}
 }
 /* ---------- Layout ---------- */
 main{max-width:720px;margin:0 auto;background:var(--paper);box-shadow:0 0 60px rgba(107,26,44,.12)}
@@ -132,7 +131,7 @@ footer .script{color:var(--blush);font-size:3rem}
 footer .hash{margin-top:.8rem;font-size:1.3rem;letter-spacing:.03em}
 
 /* vinyl player */
-#player{position:fixed;right:14px;bottom:14px;z-index:40;width:50px;height:50px;border:0;background:none;padding:0;cursor:pointer;display:none}
+#player{position:fixed;right:14px;bottom:14px;z-index:40;width:84px;height:84px;border:0;background:none;padding:0;cursor:pointer;display:none}
 body.opened #player{display:block;animation:pop .8s 2.4s both}
 @keyframes pop{from{transform:scale(0) rotate(-90deg)}to{transform:none}}
 .disc{display:block;width:100%;height:100%;border-radius:50%;position:relative;
@@ -149,10 +148,10 @@ body.opened #player{display:block;animation:pop .8s 2.4s both}
 #player.playing .note+.note{animation-delay:1.2s;left:-16px}
 @keyframes note{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}100%{opacity:0;transform:translate(-14px,-34px) rotate(-15deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.tip{position:absolute;right:0;bottom:calc(100% + 7px);top:auto;translate:0 0;white-space:nowrap;background:var(--maroon);color:var(--blush-soft);padding:.2rem .48rem;border-radius:14px;font:italic .72rem var(--serif);animation:none}
-.tip::after{display:none}
+.tip{position:absolute;right:calc(100% + 10px);top:50%;translate:0 -50%;white-space:nowrap;background:var(--maroon);color:var(--blush-soft);padding:.4rem .9rem;border-radius:20px;font:italic 1.05rem var(--serif);animation:nudge 1.8s ease-in-out infinite}
+.tip::after{content:"";position:absolute;left:100%;top:50%;translate:0 -50%;border:6px solid transparent;border-left-color:var(--maroon)}
 @keyframes nudge{50%{transform:translateX(-6px)}}
-#player.playing .tip{display:block}
+#player.playing .tip{display:none}
 /* gallery + centering */
 .gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:.8rem;max-width:960px;margin:1.6rem auto}
 .gallery .ph{border-radius:12px;grid-column:span 2;aspect-ratio:3/4}
@@ -340,13 +339,9 @@ ul.timeline span{font-size:1.25rem}
 .shades{display:flex;justify-content:center;gap:.5rem;margin:.4rem 0 1.2rem}
 .shades i{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 3px 8px rgba(107,26,44,.2)}
 .dnote{max-width:520px;margin:0 auto}
-/* Mobile-friendly video: visible even when autoplay is blocked */
-.vwrap{position:relative;background:#2c1018;overflow:hidden;min-height:220px;aspect-ratio:16/9}
-.vwrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#000;z-index:2}
-.vwrap .vidph{position:absolute;inset:0;z-index:1}
-.vwrap.has .vidph{display:none}
-.vwrap.error video{display:none}
-.vwrap.error .vidph{display:flex}
+.vwrap{position:relative;background:#2c1018}
+.vwrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;background:#000;z-index:2}
+.vwrap.has video{display:block}
 .pdiv .vidph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:linear-gradient(135deg,#6b1a2c,#8a2a3d 60%,#5a1424);color:#fbe3e8;text-align:center;font-size:1.15rem}
 .vidph em{font-style:italic;line-height:1.5}
 .play{width:78px;height:78px;border-radius:50%;background:#fbe3e8;color:#6b1a2c;display:grid;place-items:center;font-size:1.9rem;padding-left:6px;font-style:normal;box-shadow:0 8px 22px rgba(0,0,0,.3)}
@@ -405,100 +400,65 @@ body.opened .hero>*:nth-child(9){transition-delay:4.0s}
 #countdown{background:linear-gradient(180deg,var(--paper) 0,var(--blush-soft) 45%,var(--blush-soft) 100%)}
 .hero{padding-bottom:3rem}
 
-/* Final responsive media fixes */
+/* Final GitHub asset and responsive layout fixes */
 img{max-width:100%}
-.pgrid{width:100%;box-sizing:border-box}
-.pgrid .ph{min-width:0}
-.pgrid .ph img{object-fit:cover}
-@media(max-width:640px){
-  .pdivw{width:100%;}
-  .vwrap{width:100%;height:auto;min-height:190px;aspect-ratio:16/9;clip-path:none}
-  .vwrap video{width:100%;height:100%;object-fit:contain}
-  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;padding:0 .2rem}
-  .pgrid .w,.pgrid .c,.pgrid .p{grid-column:span 1!important;aspect-ratio:4/3!important}
-  .pgrid .ph.has img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph.has{position:relative;overflow:hidden}
+.ph.has img{display:block;width:100%;height:100%;object-fit:cover}
+.trio .ph.has img{object-fit:cover}
+
+/* Full-bleed divider photo */
+.pdivw{
+  width:100vw;
+  max-width:100vw;
+  margin:1.5rem 0 1.5rem calc(50% - 50vw);
+  overflow:hidden;
+  filter:drop-shadow(0 8px 12px rgba(107,26,44,.18));
 }
+.pdiv{
+  width:100%;
+  height:clamp(190px,34vw,420px);
+  overflow:hidden;
+}
+.pdiv .ph.has{width:100%;height:100%;border:0;border-radius:0}
+.pdiv .ph.has img{width:100%;height:100%;object-fit:cover;object-position:center 45%}
 
-
-/* FINAL FIX: GitHub filename case, stacked mobile gallery, full-bleed divider */
+/* Prenup: two balanced columns on desktop, a vertical stack on phones */
 .pgrid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:1rem;
-  width:100%;
-  max-width:960px;
+  width:min(100%,960px);
   margin:1.6rem auto;
 }
 .pgrid .ph{
-  position:relative;
-  display:block;
   min-width:0;
   width:100%;
-  aspect-ratio:4/3;
-  grid-column:span 1 !important;
-  overflow:hidden;
+  grid-column:auto !important;
+  aspect-ratio:4/3 !important;
   border-radius:12px;
-  background:#fbe9ec;
+  overflow:hidden;
+  background:#f7e4e8;
 }
-.pgrid .ph.has img{
+.pgrid .ph img{
   position:absolute;
   inset:0;
-  display:block;
   width:100%;
   height:100%;
   object-fit:contain;
   object-position:center;
 }
-/* The first and last prenup photos get a full row on larger screens. */
-.pgrid .ph.w{grid-column:1 / -1 !important;aspect-ratio:16/9}
-
-/* Break the divider out of the 720px content column so it spans the screen. */
-.pdivw{
-  position:relative;
-  left:50%;
-  width:100vw;
-  max-width:100vw;
-  margin-left:-50vw;
-  margin-top:1rem;
-  margin-bottom:1rem;
-  overflow:hidden;
-}
-.pdivw .pdiv{
-  width:100%;
-  height:clamp(220px,42vw,480px);
-  clip-path:none;
-}
-.pdivw .pdiv .ph.has{
-  display:block;
-  width:100%;
-  height:100%;
-  min-height:0;
-  padding:0;
-  border:0;
-  border-radius:0;
-  background:#fbe9ec;
-}
-.pdivw .pdiv .ph.has img{
-  position:absolute;
-  inset:0;
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-}
 @media(max-width:640px){
-  .pgrid{grid-template-columns:minmax(0,1fr);gap:1rem;padding:0 .15rem}
-  .pgrid .ph,.pgrid .ph.w,.pgrid .ph.c{
-    grid-column:1 / -1 !important;
-    width:100%;
-    aspect-ratio:4/3;
-  }
-  .pgrid .ph.has img{object-fit:contain}
-  .pdivw{width:100vw;max-width:100vw;left:50%;margin-left:-50vw}
-  .pdivw .pdiv{height:clamp(190px,62vw,320px);clip-path:none}
-  .pdivw .pdiv .ph.has img{object-fit:cover}
+  .pgrid{grid-template-columns:minmax(0,1fr);gap:1rem;padding:0 .25rem}
+  .pgrid .ph{grid-column:1/-1 !important;aspect-ratio:4/3 !important}
+  .pdivw{margin:1rem 0 1rem calc(50% - 50vw)}
+  .pdiv{height:clamp(170px,58vw,280px)}
+  .pdiv .ph.has img{object-fit:cover}
+  .vwrap{width:100%;height:auto;min-height:190px;aspect-ratio:16/9}
+  .vwrap video{object-fit:contain}
 }
+.vwrap video{display:block;position:absolute;inset:0;width:100%;height:100%;background:#000;z-index:2}
+.vwrap .vidph{position:absolute;inset:0;z-index:1}
+.vwrap.has .vidph{display:none}
 
 </style>
 </head>
@@ -520,7 +480,7 @@ img{max-width:100%}
   <p class="hint">You are invited. Tap the seal to open.</p>
 </div>
 
-<!-- Background music: put your song next to this page and name it music.mp3 -->
+<!-- Background music: put wedding-music.mp3 next to this page -->
 <audio id="bgm" src="wedding-music.mp3" loop preload="none"></audio>
 <button id="player" aria-label="Play or pause music"><span class="tip">♪ Click here to play</span><span class="note">♪</span><span class="note">♫</span><span class="disc"></span><span class="arm"></span></button>
 
@@ -578,7 +538,7 @@ img{max-width:100%}
   </section>
 
   <!-- MOTIF -->
-  <div class="pdivw"><div class="pdiv t2 vwrap" id="vwrap"><video id="vid" controls playsinline webkit-playsinline preload="metadata"><source src="wedding-video.mp4" type="video/mp4">Your browser does not support HTML5 video.</video><div class="ph vidph"><span class="play">▶</span><em>Tap the video controls to play</em></div></div></div>
+  <div class="pdivw"><div class="pdiv t2 vwrap" id="vwrap"><video id="vid" src="wedding-video.mp4" autoplay muted loop playsinline controls preload="metadata"></video><div class="ph vidph"><span class="play">▶</span><em>Video placeholder<br>The video will appear here when it loads</em></div></div></div>
 
   <section>
     <h2 class="script">Motif &amp; Attire</h2>
@@ -755,17 +715,11 @@ img{max-width:100%}
   }
   tickCd();setInterval(tickCd,1000);
   var v=document.getElementById('vid');
-  var vw=document.getElementById('vwrap');
-  if(v && vw){
-    v.addEventListener('loadedmetadata',function(){
-      vw.classList.add('has');
-      vw.classList.remove('error');
-    });
-    v.addEventListener('error',function(){
-      vw.classList.remove('has');
-      vw.classList.add('error');
-    });
-    // Do not force autoplay: mobile browsers often require a user tap.
+  if(v){
+    var vw=document.getElementById('vwrap');
+    v.addEventListener('loadedmetadata',function(){vw.classList.add('has');});
+    v.addEventListener('error',function(){vw.classList.remove('has');});
+    v.play().catch(function(){/* Mobile browsers may require a tap; controls remain visible. */});
   }
 })();
 </script>
